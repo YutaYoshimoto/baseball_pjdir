@@ -1,0 +1,9 @@
+Django==3.1         #webアプリケーションフレームワーク
+mysqlclient         #MYSQLに接続するモジュール
+#default-mysql-client
+Pillow              #画像処理モジュール
+bcrypt              #暗号化アルゴリズムモジュール
+django[argon2]      #パスワードハッシュアルゴリズム
+django-bootstrap4
+django-bootstrap-datepicker-plus
+django-allauth
