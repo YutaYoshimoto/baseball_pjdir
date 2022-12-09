@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,10 +46,10 @@ INSTALLED_APPS = [
     #'django-bootstrap-datepicker-plus',
     #'django-allauth', 
     
-    #'allauth',      
-    #'allauth.account',     
-    #'allauth.socialaccount',
-    #'django.contrib.sites',   
+    'allauth',      
+    'allauth.account',     
+    'allauth.socialaccount',
+    'django.contrib.sites',   
     
 ]
 
@@ -130,14 +131,28 @@ AUTH_PASSWORD_VALIDATORS = [
 
 #AUTH_USER_MODEL = 'accounts.User'
 
-'''
+
 AUTHENTICATION_BACKENDS = [ 
   'django.contrib.auth.backends.ModelBackend',     
   'allauth.account.auth_backends.AuthenticationBackend',
 ] 
 
 SITE_ID = 1
-'''
+
+#ユーザーネームは使わない
+ACCOUNT_USERNAME_REQUIRED = False 
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+#認証にはメールアドレスを使用する
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+#ログイン後のリダイレクト先を指定
+LOGIN_REDIRECT_URL = reverse_lazy('nippo-list')
+#ログアウト後のリダイレクト先
+ACCOUNT_LOGOUT_REDIRECT_URL = reverse_lazy("account_login")
+#メールアドレスが確認済みである必要がある
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
