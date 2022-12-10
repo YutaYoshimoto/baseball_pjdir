@@ -42,15 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'calenders',
-    #'django-bootstrap4',
-    #'django-bootstrap-datepicker-plus',
-    #'django-allauth', 
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
     
     'allauth',      
     'allauth.account',     
     'allauth.socialaccount',
     'django.contrib.sites',   
-    
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -76,6 +75,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            'builtins':[ 
+                'bootstrap4.templatetags.bootstrap4',
             ],
         },
     },
@@ -153,6 +155,16 @@ ACCOUNT_LOGOUT_REDIRECT_URL = reverse_lazy("account_login")
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+#フォームに対して自動でBootstrapクラスを適用
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+#即時ログアウト
+ACCOUNT_LOGOUT_ON_GET = True
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 

@@ -75,10 +75,11 @@ def nippoCreateView(request):
 def nippoUpdateFormView(request, pk):
     template_name = "nippo/nippo-formclass.html"
     obj = get_object_or_404(NippoModel, pk=pk)
-    initial_values = {"title": obj.title, "content":obj.content}
+    initial_values = {"title": obj.title, "content":obj.content}#,"date":obj.date}
     form = NippoFormClass(request.POST or initial_values)
     ctx = {"form": form}
     ctx["object"] = obj
+
     if form.is_valid():
         title = form.cleaned_data["title"]
         content = form.cleaned_data["content"]
