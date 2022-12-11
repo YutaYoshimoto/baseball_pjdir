@@ -12,11 +12,11 @@
                 <div class="card-body">
                     <h5 class="card-title">
                         <a href={% url 'nippo-detail' obj.pk %}>
-                            {{ obj.title}}
+                            {{ obj.team}}
                         </a>
                     </h5>
                     <p class="card-text">
-                        {{ obj.content }}
+                        {{ obj.date }}{{ obj.district }}{{ obj.content }}
                     </p>
                     <a href={% url 'nippo-update' obj.pk %} class="card-link">
                         編集

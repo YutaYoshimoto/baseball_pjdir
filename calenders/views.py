@@ -9,11 +9,18 @@ from django.urls import reverse, reverse_lazy
 class NippoDetailView(DetailView):
     template_name = "nippo/nippo-detail.html"
     def get_queryset(self):
-        return  NippoModel.objects.all()      
+        return  NippoModel.objects.all()   
+      
+ 
+    
 class NippoListView(ListView):
     template_name = "nippo/nippo-list.html"
     def get_queryset(self):
-        return  NippoModel.objects.all()
+        try:
+            q = self.request.GET["search"]
+        except:
+            q = None
+        return NippoModel.objects.search(query=q)
 class NippoCreateFormView(FormView):
     template_name = "nippo/nippo-formclass.html"
     form_class = NippoModelForm
@@ -41,6 +48,13 @@ class ImageUploadView(CreateView):
     form_class = ImageUploadForm
     success_url = "/"
     
+def get_queryset(self):
+    try:
+        q = self.request.GET["search"]
+    except:
+        q = None
+    return NippoModel.objects.search(query=q)
+
 '''
 class NippoCreateFormView(CreateView):
     template_name = "nippo/nippo-formclass.html"
