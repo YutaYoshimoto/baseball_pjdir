@@ -7,12 +7,13 @@
     {% if object %}
         <h2>編集</h2>
     {% else %}
-        <h2>新しく日報を作成</h2>
+        <h2>新しく日程を作成</h2>
     {% endif %}
     </div>
     
     <form method="POST"> {% csrf_token %}
     {{ form.as_p }}
+    <input type="hidden" name="user" value="{{request.user.pk}}">
     {% if object %}
         <button class="btn btn-primary form-control" type="submit">保存</button>
         <a href={% url 'nippo-delete' object.pk %} class="btn btn-danger btn-sm">削除</a>

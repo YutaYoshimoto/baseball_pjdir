@@ -38,14 +38,21 @@ class NippoCreateFormView(LoginRequiredMixin,FormView):
     success_url = reverse_lazy("nippo-list")
     def get_form_kwargs(self):
         kwgs = super().get_form_kwargs()
+        print(kwgs)
+        print(self.request)
         kwgs["user"] = self.request.user
+        print(kwgs )
         return kwgs
     def form_valid(self, form):
         data = form.cleaned_data
+        data["user"] = self.request.user
         obj = NippoModel(**data)
+        print(self.request.user,"form_valid-------")
+        print(form.cleaned_data,"form_valid-------")
+        #print(NippoModel(**data))
         obj.save()
         return super().form_valid(form)
- 
+
 
 
 class NippoUpdateFormView(OwnerOnly,UpdateView):

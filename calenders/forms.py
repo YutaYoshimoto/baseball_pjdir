@@ -1,5 +1,5 @@
 from django import forms
-from .models import ImageUpload,NippoModel
+from .models import NippoModel,ImageUpload
 #from bootstrap_datepicker_plus import DatePickerInput
 #from django.contrib.admin.widgets import AdminDateWidget
 
@@ -8,20 +8,24 @@ class NippoModelForm(forms.ModelForm):
         model = NippoModel
         exclude = ["user"]
         fields = "__all__"
-
+ 
     def __init__(self, user=None, *args, **kwargs):
         for field in self.base_fields.values():
             field.widget.attrs["class"] = "form-control"
+            print(user,"__init__")
         self.user = user
         super().__init__(*args, **kwargs)
+'''
     def save(self, commit=True):
+        print(self.user,"------------------------------")
         nippo_obj = super().save(commit=False)
+        print(commit,"------------------------------")
         if self.user:
             nippo_obj.user = self.user
         if commit:
             nippo_obj.save()
         return nippo_obj
-        
+'''        
 class ImageUploadForm(forms.ModelForm):
     class Meta:
         model = ImageUpload
