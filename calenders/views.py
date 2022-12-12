@@ -5,7 +5,18 @@ from .forms import ImageUploadForm,NippoModelForm
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView,DetailView,FormView,DeleteView,UpdateView
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.contrib.auth.decorators import user_passes_test
+from django.core.mail import EmailMultiAlternatives
 
+
+class OwnerOnly(UserPassesTestMixin):
+    def test_func(self):
+        nippo_instance = self.get_object()
+        return nippo_instance.user == self.request.user
+    
+    def handle_no_permission(self):
+        return redirect("nippo-detail", pk=self.kwargs["pk"])
 class NippoDetailView(DetailView):
     template_name = "nippo/nippo-detail.html"
     def get_queryset(self):
@@ -21,27 +32,34 @@ class NippoListView(ListView):
         except:
             q = None
         return NippoModel.objects.search(query=q)
-class NippoCreateFormView(FormView):
+class NippoCreateFormView(LoginRequiredMixin,FormView):
     template_name = "nippo/nippo-formclass.html"
     form_class = NippoModelForm
     success_url = reverse_lazy("nippo-list")
-
+    def get_form_kwargs(self):
+        kwgs = super().get_form_kwargs()
+        kwgs["user"] = self.request.user
+        return kwgs
     def form_valid(self, form):
         data = form.cleaned_data
         obj = NippoModel(**data)
         obj.save()
         return super().form_valid(form)
+ 
 
-class NippoUpdateFormView(UpdateView):
+
+class NippoUpdateFormView(OwnerOnly,UpdateView):
     template_name = "nippo/nippo-formclass.html"
     model = NippoModel
     form_class = NippoModelForm
     success_url = reverse_lazy("nippo-list")
 
-class NippoDeleteView(DeleteView):
+class NippoDeleteView(OwnerOnly,DeleteView):
     template_name = "nippo/nippo-delete.html"
     model = NippoModel
     success_url = reverse_lazy("nippo-list")
+
+
 
 class ImageUploadView(CreateView):
     template_name = "nippo/image-upload.html"

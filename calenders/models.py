@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.db.models import Q
+from django.contrib.auth import get_user, get_user_model
 
+User = get_user_model()
 
     
 class NippoModelQuerySet(models.QuerySet):
@@ -32,6 +34,7 @@ class ImageUpload(models.Model):
         return self.title
     
 class NippoModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(verbose_name='日付', blank=True, null=True,default=timezone.now)#年月日、初期値入力日
     team = models.CharField(verbose_name='チーム名',max_length=100,default='チーム名')#タイトル
     district = models.CharField(verbose_name='地区',max_length=100,default='地区')#内容
