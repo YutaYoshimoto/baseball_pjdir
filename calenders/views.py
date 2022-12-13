@@ -47,8 +47,6 @@ class NippoCreateFormView(LoginRequiredMixin,FormView):
         data = form.cleaned_data
         data["user"] = self.request.user
         obj = NippoModel(**data)
-        print(self.request.user,"form_valid-------")
-        print(form.cleaned_data,"form_valid-------")
         #print(NippoModel(**data))
         obj.save()
         return super().form_valid(form)
@@ -67,6 +65,19 @@ class NippoDeleteView(OwnerOnly,DeleteView):
     success_url = reverse_lazy("nippo-list")
 
 
+
+
+class NippoReqestDetailView(DetailView):
+    template_name = "nippo/nippo-reqest.html"
+    def get_queryset(self):
+        return  NippoModel.objects.all()   
+    
+def nipporeqestview(request):
+    template_name = "nippo/nippo-reqest.html"
+    ctx = {}
+    qs = NippoModel.objects.all()
+    ctx["object_user"] = qs      
+    return render(request, template_name, ctx)
 
 class ImageUploadView(CreateView):
     template_name = "nippo/image-upload.html"
