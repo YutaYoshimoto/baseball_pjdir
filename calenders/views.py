@@ -72,6 +72,8 @@ class NippoReqestDetailView(DetailView):
     def get_queryset(self):
         return  NippoModel.objects.all()   
     
+
+    
 def nipporeqestview(request):
     template_name = "nippo/nippo-reqest.html"
     ctx = {}

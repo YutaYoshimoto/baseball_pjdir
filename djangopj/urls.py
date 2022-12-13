@@ -20,8 +20,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    #path('calenders/', include('calenders.urls')),
-    path('nippo/', include('calenders.urls')),
+    path('', include('accounts.urls')),
+    path('nippo/',include('calenders.urls') ),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
