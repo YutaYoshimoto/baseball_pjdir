@@ -14,7 +14,6 @@ class OwnerOnly(UserPassesTestMixin):
     def test_func(self):
         nippo_instance = self.get_object()
         return nippo_instance.user == self.request.user
-    
     def handle_no_permission(self):
         return redirect("nippo-detail", pk=self.kwargs["pk"])
 class NippoDetailView(DetailView):
@@ -37,18 +36,16 @@ class NippoCreateFormView(LoginRequiredMixin,FormView):
     form_class = NippoModelForm
     success_url = reverse_lazy("nippo-list")
     def get_form_kwargs(self):
-        kwgs = super().get_form_kwargs()
-        print(kwgs)
-        print(self.request)
-        kwgs["user"] = self.request.user
-        print(kwgs )
-        return kwgs
+        """ This function is called when the form is instantiated. """
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user  # add the user to the form kwargs
+        return kwargs
+    
     def form_valid(self, form):
-        data = form.cleaned_data
-        data["user"] = self.request.user
-        obj = NippoModel(**data)
-        #print(NippoModel(**data))
-        obj.save()
+        """ This function is called when the form is submitted. Next call is save() """
+        # variable form is an instance of NippoModelForm
+        # call save() to save the form data to the database
+        form.save()
         return super().form_valid(form)
 
 
@@ -58,7 +55,6 @@ class NippoUpdateFormView(OwnerOnly,UpdateView):
     model = NippoModel
     form_class = NippoModelForm
     success_url = reverse_lazy("nippo-list")
-
 class NippoDeleteView(OwnerOnly,DeleteView):
     template_name = "nippo/nippo-delete.html"
     model = NippoModel

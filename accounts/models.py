@@ -42,9 +42,7 @@ class User(AbstractBaseUser):
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False) 
     admin = models.BooleanField(default=False) 
-   
     USERNAME_FIELD = 'email'
-
     objects = UserManager()
 
     def __str__(self):             
