@@ -26,7 +26,7 @@ class NippoModelManager(models.Manager):
         return self.get_queryset().search(query=query)
 class NippoModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(verbose_name='日付', blank=True, null=True,default=timezone.now)#年月日、初期値入力日
+    date = models.DateField(verbose_name='予定日', blank=True, null=True,default=timezone.now)#年月日、初期値入力日
     team = models.CharField(verbose_name='チーム名',max_length=100,default='チーム名')#タイトル
     district = models.CharField(verbose_name='地区',max_length=100,default='地区')#内容
     content = models.TextField(verbose_name='内容',default='default-content')#内容
