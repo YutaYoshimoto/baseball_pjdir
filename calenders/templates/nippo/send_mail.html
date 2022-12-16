@@ -1,0 +1,14 @@
+{% extends 'nippo_base.html' %}
+{% block head_title %}{{ object.title }}の詳細{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="card mx-auto my-5 w-50" style="min-width:300px;">
+        <div class="card-header">
+            試合を申請する旨のメールを送信しました。
+        </div>
+        <div class="card-footer">
+            <a href={% url 'nippo-list' %} class="btn btn-primary btn-sm">戻る</a>
+        </div>
+    </div> 
+</div>
+{% endblock %}

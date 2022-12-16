@@ -8,6 +8,8 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import EmailMultiAlternatives
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 class OwnerOnly(UserPassesTestMixin):
@@ -68,6 +70,33 @@ class NippoReqestDetailView(DetailView):
     def get_queryset(self):
         return  NippoModel.objects.all()   
     
+def reqest_mail(request,pk):
+    template_name = "nippo/send_mail.html"
+    subject = "試合の申請"
+    ctx={}
+    qs = NippoModel.objects.get(pk=pk)
+    print("print",qs,"~~~~~~~~~~~~~~~~~~~~~~")
+    qs2 = NippoModel.objects.all()
+    print("print",qs2,"~~~~~~~~~~~~~~~~~~~~~~")
+    ctx["login_user"]= str(request.user) #ログインユーザーを取得する
+    ctx["user"]= str(qs.user)
+    ctx["date"]= str(qs.date)
+    '''
+    ctx["login_user_str"]= str(ctx["login_user"].copy()) #ログインユーザーを取得する
+    ctx["user_str"]= str(ctx["user"].copy())
+    ctx["date_str"]= str(ctx["date"].copy())
+    print("print",ctx["login_user_str"],"~~~~~~~~~~~~~~~~~~~~~~")
+    print("print",ctx["user_str"],"~~~~~~~~~~~~~~~~~~~~~~")
+    print("print",ctx["date_str"],"~~~~~~~~~~~~~~~~~~~~~~")
+    '''
+    from_email = request.user # 送信者
+    recipient_list = [
+        ctx["user"]
+    ]
+    
+    message = render_to_string("mailers/reqest_mail.txt",ctx)
+    send_mail(subject, message, from_email, recipient_list)
+    return render(request, template_name,ctx)  
 
     
 def nipporeqestview(request):

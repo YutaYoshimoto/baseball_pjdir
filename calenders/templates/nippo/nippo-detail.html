@@ -12,17 +12,14 @@
             <p class="card-text">地区：{{ object.district }} </p>
             <p class="card-text">内容：{{ object.content }}</p>
             
-            <div class="w-50">
+            <div class="w-100">
+                <a href={% url 'reqest-mail' object.pk %} class="btn btn-primary btn-sm">申請</a>
                 <a href={% url 'nippo-update' object.pk %} class="btn btn-primary btn-sm">編集</a>
                 <a href={% url 'nippo-delete' object.pk %} class="btn btn-danger btn-sm">削除</a>
             </div>
         </div>
         <div class="card-footer">
             <a href={% url 'nippo-list' %} class="btn btn-primary btn-sm">戻る</a>
-        </div>
-        <div class="card-footer">
-            <p class="card-text">試合を申請するには下記メールアドレスに連絡してください。</p>
-            {{ object.user }}
         </div>
     </div> 
 </div>

@@ -164,7 +164,16 @@ BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
+#メールをコンソールに表示する
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#実際に送信
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+EMAIL_HOST = 'smtp'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

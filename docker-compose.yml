@@ -11,7 +11,9 @@ services:
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
 
   web:
-
+    environment:
+      EMAIL_HOST: smtp
+      EMAIL_PORT: 1025
     build: .       
     command: python3 manage.py runserver 0.0.0.0:8000 
     volumes:                  
@@ -20,4 +22,9 @@ services:
       - "8000:8000"
     depends_on:               
       - db
+  smtp:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"
 
