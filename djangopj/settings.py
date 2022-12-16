@@ -164,17 +164,8 @@ BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
-#smtpコンテナを指定
-EMAIL_HOST = 'smtp'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-# SMTPの1025番ポートを指定
-EMAIL_PORT = 1025
-# 送信中の文章の暗号化をFalseにします
-EMAIL_USE_TLS = False #True
-DEFAULT_FROM_EMAIL = 'system@example.com'
-#送信内容等をコンソールに表示(送信せずに)
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
