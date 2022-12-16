@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 
 
 class OwnerOnly(UserPassesTestMixin):
@@ -69,7 +70,8 @@ class NippoReqestDetailView(DetailView):
     template_name = "nippo/nippo-reqest.html"
     def get_queryset(self):
         return  NippoModel.objects.all()   
-    
+
+@login_required
 def reqest_mail(request,pk):
     template_name = "nippo/send_mail.html"
     subject = "試合の申請"
