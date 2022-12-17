@@ -19,7 +19,10 @@
                         </a>
                     </h5>
                     <p class="card-text">
-                        {{ obj.date }}{{ obj.district }}{{ obj.content }}
+                        {{ obj.grade }}:{{ obj.date }}
+                    </p>
+                    <p class="card-text">
+                        {{ obj.district }}の{{ obj.content }}
                     </p>
                     <a href={% url 'nippo-update' obj.pk %} class="card-link">
                         編集

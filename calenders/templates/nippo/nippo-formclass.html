@@ -10,11 +10,12 @@
         <h2>新しく日程を作成</h2>
     {% endif %}
     </div>
+    
     {% bootstrap_javascript jquery='full' %}
     {{ form.media }}
     <form method="POST"> {% csrf_token %}
       {% bootstrap_form form %}  {# Renders form fields using django-bootstrapX #}
-
+    
 {#    {{ form.as_p }}#}
 {#    <input type="hidden" name="user" class="form-control"value="{{request.user.pk}}">#}
 {% if object %}

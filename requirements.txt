@@ -9,3 +9,6 @@ django-bootstrap-datepicker-plus
 django-allauth
 django-crispy-forms
 django-bootstrap-datepicker-plus 
+django-extensions
+
+#django-widgets-improved

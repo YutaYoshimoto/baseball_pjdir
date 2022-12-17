@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django.contrib.sites',   
     "crispy_forms",
+    'django_extensions',
+    #'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -165,9 +167,9 @@ BOOTSTRAP4 = {
 }
 
 #メールをコンソールに表示する
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #実際に送信
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp'
 EMAIL_PORT = 1025
