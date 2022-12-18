@@ -14,7 +14,8 @@ class NippoModelQuerySet(models.QuerySet):
                 Q(date__icontains=query)|
                 Q(team__icontains=query)|
                 Q(district__icontains=query)|
-                Q(content__icontains=query)            
+                Q(content__icontains=query)| 
+                Q(grade__icontains=query)            
             )
             qs = qs.filter(or_lookup).distinct()
         return qs.order_by("-timestamp") 
@@ -28,7 +29,7 @@ class NippoModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(verbose_name='予定日', blank=True, null=True,default=timezone.now)#年月日、初期値入力日
     team = models.CharField(verbose_name='チーム名',max_length=100,default='チーム名')#タイトル
-    grade = models.CharField(verbose_name='年齢：小学生,中学生,高校生,社会人',max_length=100,default='小学生')#タイトル
+    grade = models.CharField(verbose_name='年齢層：小学生,中学生,高校生,社会人',max_length=100,default='小学生')#タイトル
     district = models.CharField(verbose_name='地区',max_length=100,default='地区')#内容
     content = models.TextField(verbose_name='内容',default='詳細な内容')#内容
     timestamp = models.DateTimeField(auto_now_add=True)
